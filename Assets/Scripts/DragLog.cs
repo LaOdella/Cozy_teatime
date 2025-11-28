@@ -33,11 +33,6 @@ public class DragLog : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero, Mathf.Infinity, inverseMask);
             // ------------------------------------------
 
-            if (hit.collider != null)
-            {
-                Debug.Log("Hit Collider: " + hit.collider.name); // <--- DEBUG LINE
-            }
-
             // Check if we hit the FURNACE DOOR
             if (hit.collider != null && hit.collider.CompareTag("FurnaceDoor"))
             {
