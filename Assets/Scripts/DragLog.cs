@@ -2,20 +2,18 @@ using UnityEngine;
 
 public class DragLog : MonoBehaviour
 {
-    private bool isHeld = true;      // Controls movement (Log follows mouse when true)
-    private bool canDrop = false;    // Safety flag: Prevents the log from dropping on the same frame it spawns
+    private bool isHeld = true;
+    private bool canDrop = false;
 
     void Update()
     {
-        // 1. Follow the mouse while isHeld is true
+        // 1. Log follows the mouse while isHeld is true
         if (isHeld)
         {
-            // Convert screen pixel position to a position in the game world
             Vector2 mousePos = Input.mousePosition;
             Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
             transform.position = worldPos;
 
-            // Wait for mouse button to be released after the log was spawned
             if (Input.GetMouseButtonUp(0))
             {
                 canDrop = true;
@@ -25,24 +23,29 @@ public class DragLog : MonoBehaviour
         // 2. DROP LOGIC: If allowed to drop AND player clicks again
         if (canDrop && Input.GetMouseButtonDown(0))
         {
-            // Perform a manual raycast (a "laser shot") at the cursor's position
+            // --- RAYCAST FIX: Ignore the log itself ---
+            // Define the layer mask: Hit everything BUT the Log layer.
+            int logLayerMask = 1 << LayerMask.NameToLayer("Log");
+            int inverseMask = ~logLayerMask; // The tilde (~) inverts the mask
+
+            // Perform the raycast check, applying the mask
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero, Mathf.Infinity, inverseMask);
+            // ------------------------------------------
+
+            if (hit.collider != null)
+            {
+                Debug.Log("Hit Collider: " + hit.collider.name); // <--- DEBUG LINE
+            }
 
             // Check if we hit the FURNACE DOOR
             if (hit.collider != null && hit.collider.CompareTag("FurnaceDoor"))
             {
-                // --- SUCCESSFUL DROP ON DOOR ---
-
-                // 1. Find the FurnaceDoorLogic script on the object we just hit
+                // SUCCESS: Notify the door and destroy the log
                 FurnaceDoorLogic doorScript = hit.collider.GetComponent<FurnaceDoorLogic>();
-
-                // 2. Call the public method to change the sprite state
                 doorScript.ToggleFire();
 
-                isHeld = false; // Stop following mouse
-
-                // Destroy the log, as its job is done
+                isHeld = false;
                 Destroy(gameObject);
             }
             else

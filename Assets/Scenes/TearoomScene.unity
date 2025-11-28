@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FurnaceDoorLogic
   fireOnSprite: {fileID: 9204931480678746970, guid: 963930ca5395f254f898d1c068d5bc59, type: 3}
   fireOffSprite: {fileID: 8334651344603559088, guid: 963930ca5395f254f898d1c068d5bc59, type: 3}
+  fireDuration: 3
 --- !u!1 &763628242
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,7 +421,7 @@ GameObject:
   - component: {fileID: 955163380}
   - component: {fileID: 955163383}
   - component: {fileID: 955163384}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Log_Pile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

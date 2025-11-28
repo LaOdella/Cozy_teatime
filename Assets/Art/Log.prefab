@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7881710917618637008}
   - component: {fileID: 8822978027396182540}
   - component: {fileID: 3865925114150926448}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1243356983
+  m_SortingLayer: 1
   m_SortingOrder: 10
   m_Sprite: {fileID: 7440981132975211316, guid: ace9cff54e14c1c4dada1503a13164d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

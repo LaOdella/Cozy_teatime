@@ -1,38 +1,57 @@
 using UnityEngine;
+using System.Collections;
 
 public class FurnaceDoorLogic : MonoBehaviour
 {
-    // --- VARIABLES (Assigned in the Inspector) ---
     [SerializeField] private Sprite fireOnSprite;
     [SerializeField] private Sprite fireOffSprite;
 
-    // --- INTERNAL STATE ---
+    [SerializeField] private float fireDuration = 30f;
+    private Coroutine fireTimerRoutine;
+
+    private SpriteRenderer spriteRenderer;
     private bool isFireOn = false;
 
-    // IMPORTANT: We delete the 'Start()' method, as it was failing to hold the reference!
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = fireOffSprite;
+        isFireOn = false;
+    }
 
-    // --- PUBLIC METHOD (Called by DragLog.cs) ---
     public void ToggleFire()
     {
-        // FORCE THE COMPONENT LOOKUP HERE, ensuring it is fresh every time.
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-
-        // Check if the lookup succeeded before using it
-        if (spriteRenderer == null)
-        {
-            Debug.LogError("FurnaceDoorLogic failed: SpriteRenderer component is missing!");
-            return;
-        }
+        // --- NOTE: Debug.Log line removed for clean console ---
 
         isFireOn = !isFireOn; // Flip the current state
 
         if (isFireOn)
         {
             spriteRenderer.sprite = fireOnSprite;
+
+            // Start the timer routine
+            if (fireTimerRoutine != null) StopCoroutine(fireTimerRoutine);
+            fireTimerRoutine = StartCoroutine(FireTimer());
         }
         else
         {
             spriteRenderer.sprite = fireOffSprite;
+
+            // Stop the timer immediately if the player clicks it off early
+            if (fireTimerRoutine != null) StopCoroutine(fireTimerRoutine);
+            fireTimerRoutine = null;
         }
+    }
+
+    private IEnumerator FireTimer()
+    {
+        yield return new WaitForSeconds(fireDuration);
+
+        if (isFireOn)
+        {
+            ToggleFire();
+        }
+
+        fireTimerRoutine = null;
     }
 }
