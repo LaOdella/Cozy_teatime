@@ -8,6 +8,7 @@ TagManager:
   - StoveTop
   - Cup
   - Bin
+  - Customer
   layers:
   - Default
   - TransparentFX

@@ -16,21 +16,14 @@ public class CupDrag : MonoBehaviour
 
     void Update()
     {
-        // --- PART 1: PICKUP ---
+        // --- PICKUP ---
         if (isHeld == false)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                // PRIORITY CHECK:
-                // Is there a Spoon currently active in the scene?
-                // If yes, we block the cup pickup so you can pour safely.
-                // (Updated command for Unity 2025)
-                if (FindAnyObjectByType<SpoonLogic>() != null)
-                {
-                    return; // Stop here. Do not pick up the cup.
-                }
+                // Priority: Don't pick up if Spoon is active
+                if (FindAnyObjectByType<SpoonLogic>() != null) return;
 
-                // Normal Pickup Logic
                 Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 RaycastHit2D hit = Physics2D.Raycast(clickPos, Vector2.zero);
 
@@ -42,7 +35,7 @@ public class CupDrag : MonoBehaviour
             }
         }
         else
-        // --- PART 2: CARRYING ---
+        // --- CARRYING ---
         {
             Vector2 mousePos = Input.mousePosition;
             Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -64,21 +57,33 @@ public class CupDrag : MonoBehaviour
     void CheckDrop()
     {
         gameObject.SetActive(false);
-
         Vector2 dropPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(dropPos, Vector2.zero);
-
         gameObject.SetActive(true);
 
+        // 1. Bin (Trash)
         if (hit.collider != null && hit.collider.CompareTag("Bin"))
         {
             BinLogic bin = hit.collider.GetComponent<BinLogic>();
             if (bin != null) bin.OpenAndClose();
-
             if (cupLogic != null) cupLogic.EmptyCup();
-
             transform.position = startPosition;
         }
+        // 2. Customer (Serve) -- NEW!
+        else if (hit.collider != null && hit.collider.CompareTag("Customer"))
+        {
+            NPCLogic npc = hit.collider.GetComponent<NPCLogic>();
+            if (npc != null && cupLogic != null)
+            {
+                // Serve the tea logic
+                npc.ServeTea(cupLogic);
+
+                // Empty the cup and return it to table
+                cupLogic.EmptyCup();
+            }
+            transform.position = startPosition;
+        }
+        // 3. Missed? (Go Home)
         else
         {
             transform.position = startPosition;
