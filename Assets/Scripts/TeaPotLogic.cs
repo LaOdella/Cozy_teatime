@@ -2,70 +2,71 @@ using UnityEngine;
 
 public class TeaPotLogic : MonoBehaviour
 {
-    // --- CONNECTING THE PIECES ---
     [Header("References")]
-    // We need to know about the fire to check if it's hot
     [SerializeField] private FurnaceDoorLogic furnaceScript;
-
-    // We need the smoke object to turn it on when ready
     [SerializeField] private GameObject smokeEffect;
 
-    // --- SETTINGS ---
-    [SerializeField] private float timeToBoil = 10f; // How long it takes to boil
+    [Header("Settings")]
+    [SerializeField] private float timeToBoil = 10f;   // Time to heat up
+    [SerializeField] private float boilingWindow = 10f; // Time it STAYS hot (New!)
 
     // --- TRACKING DATA ---
-    private float currentTimer = 0f;
+    private float currentTimer = 0f;     // Tracks heating progress
+    private float boilWindowTimer = 0f;  // Tracks how long it's been boiling
     private bool isBoiled = false;
 
     void Start()
     {
-        // Ensure smoke is hidden when the game starts
-        if (smokeEffect != null)
-        {
-            smokeEffect.SetActive(false);
-        }
+        if (smokeEffect != null) smokeEffect.SetActive(false);
         isBoiled = false;
         currentTimer = 0f;
+        boilWindowTimer = 0f;
     }
 
     void Update()
     {
-        // 1. If we are already boiled, stop checking. We are done.
-        if (isBoiled) return;
+        // --- PHASE 1: ALREADY BOILED? (The Window) ---
+        if (isBoiled)
+        {
+            // Start the "Window" timer
+            boilWindowTimer += Time.deltaTime;
 
-        // 2. Check: Is the furnace script attached? AND Is the fire burning?
+            // Did we miss the window?
+            if (boilWindowTimer >= boilingWindow)
+            {
+                // Turn it off!
+                isBoiled = false;
+                boilWindowTimer = 0f;
+                currentTimer = 0f; // Reset heating progress completely
+
+                if (smokeEffect != null) smokeEffect.SetActive(false);
+                Debug.Log("Tea got cold!");
+            }
+
+            return; // Exit here so we don't run the heating logic below
+        }
+
+        // --- PHASE 2: HEATING UP ---
         if (furnaceScript != null && furnaceScript.IsFireBurning())
         {
-            // 3. Add time (1 second per second)
             currentTimer += Time.deltaTime;
 
-            // 4. Have we reached 10 seconds?
             if (currentTimer >= timeToBoil)
             {
                 BoilWater();
             }
-        }
-        else
-        {
-            // Optional: If fire goes out, do we cool down? 
-            // For now, let's just pause the timer (do nothing).
         }
     }
 
     void BoilWater()
     {
         isBoiled = true;
+        boilWindowTimer = 0f; // Reset the window timer
 
-        // Show the smoke!
-        if (smokeEffect != null)
-        {
-            smokeEffect.SetActive(true);
-        }
-
+        if (smokeEffect != null) smokeEffect.SetActive(true);
         Debug.Log("Tea is Boiled!");
     }
 
-    // Helper function for the Drag Script later:
     public bool IsReady()
     {
         return isBoiled;

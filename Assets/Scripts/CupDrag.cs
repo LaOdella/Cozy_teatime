@@ -1,18 +1,17 @@
 using UnityEngine;
 
-public class TeaPotDrag : MonoBehaviour
+public class CupDrag : MonoBehaviour
 {
     private bool isHeld = false;
     private bool canDrop = false;
     private Vector3 startPosition;
 
-    // Reference to the logic script
-    private TeaPotLogic teaLogic;
+    private CupLogic cupLogic;
 
     void Start()
     {
         startPosition = transform.position;
-        teaLogic = GetComponent<TeaPotLogic>();
+        cupLogic = GetComponent<CupLogic>();
     }
 
     void Update()
@@ -22,21 +21,23 @@ public class TeaPotDrag : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                // PRIORITY CHECK:
+                // Is there a Spoon currently active in the scene?
+                // If yes, we block the cup pickup so you can pour safely.
+                // (Updated command for Unity 2025)
+                if (FindAnyObjectByType<SpoonLogic>() != null)
+                {
+                    return; // Stop here. Do not pick up the cup.
+                }
+
+                // Normal Pickup Logic
                 Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 RaycastHit2D hit = Physics2D.Raycast(clickPos, Vector2.zero);
 
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
-                    // Only pick up if boiled!
-                    if (teaLogic != null && teaLogic.IsReady())
-                    {
-                        isHeld = true;
-                        canDrop = false;
-                    }
-                    else
-                    {
-                        Debug.Log("The tea is not ready yet!");
-                    }
+                    isHeld = true;
+                    canDrop = false;
                 }
             }
         }
@@ -62,32 +63,22 @@ public class TeaPotDrag : MonoBehaviour
 
     void CheckDrop()
     {
-        gameObject.SetActive(false); // Hide pot to see what's behind
+        gameObject.SetActive(false);
 
         Vector2 dropPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(dropPos, Vector2.zero);
 
         gameObject.SetActive(true);
 
-        // 1. Did we hit the Stove? (Stay there)
-        if (hit.collider != null && hit.collider.CompareTag("StoveTop"))
+        if (hit.collider != null && hit.collider.CompareTag("Bin"))
         {
-            startPosition = transform.position;
-        }
-        // 2. Did we hit a Cup? (Pour and go back)
-        else if (hit.collider != null && hit.collider.CompareTag("Cup"))
-        {
-            CupLogic cup = hit.collider.GetComponent<CupLogic>();
+            BinLogic bin = hit.collider.GetComponent<BinLogic>();
+            if (bin != null) bin.OpenAndClose();
 
-            if (cup != null)
-            {
-                cup.AddWater(); // POUR!
-            }
+            if (cupLogic != null) cupLogic.EmptyCup();
 
-            // Snap back to the stove automatically
             transform.position = startPosition;
         }
-        // 3. Missed everything? (Go back)
         else
         {
             transform.position = startPosition;

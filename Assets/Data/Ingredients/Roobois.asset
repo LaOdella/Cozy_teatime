@@ -16,3 +16,4 @@ MonoBehaviour:
   description: An earthy flower
   property: Earthy
   icon: {fileID: -8711462880533768037, guid: e47b50fcef1d9c744b4bb8091726f0d3, type: 3}
+  brewedSprite: {fileID: -6865029058583166475, guid: 538e473b6632a7346b5fb29ae5bf43ea, type: 3}

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 75f18c9da132e4441a77bbbf7f3c5084
+guid: e0fe331174e956f488f59c26879984a8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2917320606301744487
-    second: cuplbase_0
+      213: 447889429383771718
+    second: spoonmint_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cuplbase_0
+      name: spoonmint_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 29
-        height: 29
+        width: 28
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 992157d7d589387d0800000000000000
-      internalID: -2917320606301744487
+      spriteID: 64672112019373600800000000000000
+      internalID: 447889429383771718
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cuplbase_0: -2917320606301744487
+      spoonmint_0: 447889429383771718
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - FurnaceDoor
   - StoveTop
+  - Cup
+  - Bin
   layers:
   - Default
   - TransparentFX

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa63467dc1e34594b8372bd5b7c19293, type: 3}
-  m_Name: Tea Base
+  m_Name: Mint
   m_EditorClassIdentifier: Assembly-CSharp::TeaIngredient
   teaName: Tea Base
   description: A base tea
   property: Base
   icon: {fileID: -6449424011454579442, guid: 6e9cd6abacc08a448a6e4b82b925ee68, type: 3}
-  brewedSprite: {fileID: -2917320606301744487, guid: 75f18c9da132e4441a77bbbf7f3c5084, type: 3}
+  brewedSprite: {fileID: -5169497064427434063, guid: 05f447394220ddd4a83bfa9fd19f73bc, type: 3}

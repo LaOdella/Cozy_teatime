@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 75f18c9da132e4441a77bbbf7f3c5084
+guid: 01529541596e08e4b80889ef70935b19
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2917320606301744487
-    second: cuplbase_0
+      213: -5868093129598958763
+    second: bin_0
+  - first:
+      213: -95668319891423335
+    second: bin_1
+  - first:
+      213: -8171767716934080962
+    second: bin_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +119,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cuplbase_0
+      name: bin_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 29
-        height: 29
+        width: 23
+        height: 41
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 992157d7d589387d0800000000000000
-      internalID: -2917320606301744487
+      spriteID: 553085d9368509ea0800000000000000
+      internalID: -5868093129598958763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bin_1
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 0
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99ffc908b2e1caef0800000000000000
+      internalID: -95668319891423335
       vertices: []
       indices: 
       edges: []
@@ -138,7 +166,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b48f93cb979af964abb938531ac877cf
     internalID: 0
     vertices: []
     indices: 
@@ -146,9 +174,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceOnImport
+        value: False
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":23.0,"y":41.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      cuplbase_0: -2917320606301744487
+      bin_0: -5868093129598958763
+      bin_1: -95668319891423335
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

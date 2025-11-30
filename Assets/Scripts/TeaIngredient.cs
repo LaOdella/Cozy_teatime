@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// This line allows us to right-click in the Project window and create a new Tea Ingredient
 [CreateAssetMenu(fileName = "New Tea", menuName = "Tea System/Ingredient")]
 public class TeaIngredient : ScriptableObject
 {
@@ -10,7 +9,9 @@ public class TeaIngredient : ScriptableObject
     [TextArea]
     public string description;  // e.g., "A calming purple flower."
 
-    public string property;     // e.g., "Relaxing", "Warming", "Refreshing"
+    public string property;     // e.g., "Relaxing"
 
-    public Sprite icon;         // The image for the jar/leaf
+    [Header("Visuals")]
+    public Sprite icon;         // The image for the Jar
+    public Sprite brewedSprite; // The image for the Full Cup (NEW!)
 }
