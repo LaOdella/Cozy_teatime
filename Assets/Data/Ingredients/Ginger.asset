@@ -16,3 +16,4 @@ MonoBehaviour:
   description: A warming flower
   property: Warming
   icon: {fileID: 8698163947868029849, guid: 54bde747450c520448cee0d510a2ec2d, type: 3}
+  brewedSprite: {fileID: 0}
