@@ -21,8 +21,6 @@ public class FurnaceDoorLogic : MonoBehaviour
 
     public void ToggleFire()
     {
-        // --- NOTE: Debug.Log line removed for clean console ---
-
         isFireOn = !isFireOn; // Flip the current state
 
         if (isFireOn)
@@ -53,5 +51,11 @@ public class FurnaceDoorLogic : MonoBehaviour
         }
 
         fireTimerRoutine = null;
+    }
+
+    // This allows the Tea Pot script to ask: "Is the fire currently ON?"
+    public bool IsFireBurning()
+    {
+        return isFireOn;
     }
 }

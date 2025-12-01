@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - FurnaceDoor
+  - StoveTop
+  - Cup
+  - Bin
+  - Customer
   layers:
   - Default
   - TransparentFX
