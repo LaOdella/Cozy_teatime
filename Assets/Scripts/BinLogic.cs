@@ -11,7 +11,7 @@ public class BinLogic : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = binClosed; // Start closed
+        spriteRenderer.sprite = binClosed; 
     }
 
     // Public method for the Cup to call
@@ -22,13 +22,14 @@ public class BinLogic : MonoBehaviour
 
     private IEnumerator AnimateBin()
     {
-        // 1. Open
+        // three main actions
+        // 1 Open
         spriteRenderer.sprite = binOpen;
 
-        // 2. Wait for 0.5 seconds (visual feedback)
+        // 2 Wait for 0.5 seconds 
         yield return new WaitForSeconds(0.2f);
 
-        // 3. Close
+        // 3 Close
         spriteRenderer.sprite = binClosed;
     }
 }

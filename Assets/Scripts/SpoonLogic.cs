@@ -4,7 +4,7 @@ public class SpoonLogic : MonoBehaviour
 {
     private bool isHeld = true;
 
-    // This variable holds the data (assigned by the Jar)
+    // This variable holds the data (assigned by the jar)
     public TeaIngredient teaData;
 
     void Update()
@@ -42,7 +42,7 @@ public class SpoonLogic : MonoBehaviour
                 // Pour the tea data into the cup
                 cup.AddLeaves(teaData);
 
-                // --- YOUR CUSTOM MESSAGE ---
+                // have leaves been dropped?
                 Debug.Log("Success, Leaves dropped");
 
                 // Destroy the spoon
@@ -51,7 +51,7 @@ public class SpoonLogic : MonoBehaviour
         }
         else
         {
-            // Clicked nothing/air? Just destroy the spoon
+            // Clicked nothing/air... Just destroy the spoon
             Destroy(gameObject);
         }
     }

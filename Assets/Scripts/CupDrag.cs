@@ -16,7 +16,7 @@ public class CupDrag : MonoBehaviour
 
     void Update()
     {
-        // --- PART 1: PICKUP ---
+        // pickup
         if (isHeld == false)
         {
             if (Input.GetMouseButtonDown(0))
@@ -35,7 +35,7 @@ public class CupDrag : MonoBehaviour
             }
         }
         else
-        // --- PART 2: CARRYING ---
+        //carrying
         {
             Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = worldPos;
@@ -92,7 +92,7 @@ public class CupDrag : MonoBehaviour
 
             transform.position = startPosition;
         }
-        // Missed everything? (Go Home)
+        // Missed everything? 
         else
         {
             transform.position = startPosition;

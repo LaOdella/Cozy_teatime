@@ -13,5 +13,5 @@ public class TeaIngredient : ScriptableObject
 
     [Header("Visuals")]
     public Sprite icon;         // The image for the Jar
-    public Sprite brewedSprite; // The image for the Full Cup (NEW!)
+    public Sprite brewedSprite; // The image for the Full Cup 
 }

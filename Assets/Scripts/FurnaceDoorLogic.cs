@@ -53,7 +53,6 @@ public class FurnaceDoorLogic : MonoBehaviour
         fireTimerRoutine = null;
     }
 
-    // --- NEW HELPER FUNCTION ---
     // This allows the Tea Pot script to ask: "Is the fire currently ON?"
     public bool IsFireBurning()
     {

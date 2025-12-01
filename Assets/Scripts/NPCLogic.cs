@@ -26,7 +26,7 @@ public class NPCLogic : MonoBehaviour
         DisplayCurrentRequest();
     }
 
-    // NEW: Function to display the request text without generating a new request
+    // Function to display the request text without generating a new request
     public void DisplayCurrentRequest()
     {
         if (dialogueText != null)
@@ -38,7 +38,7 @@ public class NPCLogic : MonoBehaviour
     // Called by the CupDrag script when the cup is dropped on the NPC
     public bool ServeTea(CupLogic cup)
     {
-        // ... (Dry/Empty checks remain the same) ...
+        // if cup is epty
         if (cup.teaInside == null)
         {
             dialogueText.text = "This cup is empty! Where's my tea?";
@@ -53,7 +53,7 @@ public class NPCLogic : MonoBehaviour
         // 2. Ready to Serve (Has water and leaves)
         string receivedProperty = cup.teaInside.property;
 
-        // A. IDEAL MATCH (Win)
+        // A. good match (higher reward)
         if (receivedProperty == currentRequest)
         {
             dialogueText.text = "Perfect! Just what I needed.";
@@ -61,7 +61,7 @@ public class NPCLogic : MonoBehaviour
             StartCoroutine(WaitAndGenerateNewOrder());
             return true;
         }
-        // B. ACCEPTABLE MATCH (Simple Tea Override - Neutral Acceptance)
+        // B. acceptable match (Simple Tea Override - Neutral Acceptance)
         else if (receivedProperty == "Simple")
         {
             dialogueText.text = "That'll do I guess... it's a bit too simple.";
@@ -69,21 +69,21 @@ public class NPCLogic : MonoBehaviour
             StartCoroutine(WaitAndGenerateNewOrder());
             return true;
         }
-        // C. HARD REFUSAL (Wrong specialty tea)
+        // C. hard refusal (Wrong specialty tea)
         else
         {
             // Show rejection message temporarily
             dialogueText.text = "Hmm... this isn't what I wanted...";
             Debug.Log("REJECTED: Wrong Specialty Property.");
 
-            // NEW: Start timer to revert dialogue back to the original request
+            // Start timer to revert dialogue back to the original request
             StartCoroutine(RevertToRequest(3.0f));
 
             return false; // Rejected (Cup snaps back full)
         }
     }
 
-    // NEW: Coroutine to revert the text after a delay
+    // Coroutine to revert the text after a delay
     private IEnumerator RevertToRequest(float delay)
     {
         yield return new WaitForSeconds(delay);

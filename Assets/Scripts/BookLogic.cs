@@ -53,16 +53,16 @@ public class BookLogic : MonoBehaviour
         }
     }
 
-    // Called by TeaJar (Entry Point)
+    // Called by TeaJar 
     public void ReadTea(TeaIngredient tea)
     {
-        // 1. Stop any existing text display timer (prevents conflicts)
+        // 1. Stop any existing text display timer 
         if (textTimerRoutine != null) StopCoroutine(textTimerRoutine);
 
         // 2. Start the 4-second display timer
         textTimerRoutine = StartCoroutine(DisplayHintForDuration(tea));
 
-        // 3. Start the visual page turn animation (Runs independently)
+        // 3. Start the visual page turn animation 
         StartCoroutine(AnimateAndReset());
 
         isListening = false;

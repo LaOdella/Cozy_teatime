@@ -8,9 +8,9 @@ public class TeaPotLogic : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float timeToBoil = 10f;   // Time to heat up
-    [SerializeField] private float boilingWindow = 10f; // Time it STAYS hot (New!)
+    [SerializeField] private float boilingWindow = 10f; // Time it STAYS hot 
 
-    // --- TRACKING DATA ---
+    // tracking data
     private float currentTimer = 0f;     // Tracks heating progress
     private float boilWindowTimer = 0f;  // Tracks how long it's been boiling
     private bool isBoiled = false;
@@ -25,7 +25,7 @@ public class TeaPotLogic : MonoBehaviour
 
     void Update()
     {
-        // --- PHASE 1: ALREADY BOILED? (The Window) ---
+        // Boiling phase
         if (isBoiled)
         {
             // Start the "Window" timer
@@ -46,7 +46,7 @@ public class TeaPotLogic : MonoBehaviour
             return; // Exit here so we don't run the heating logic below
         }
 
-        // --- PHASE 2: HEATING UP ---
+        // heating up phase
         if (furnaceScript != null && furnaceScript.IsFireBurning())
         {
             currentTimer += Time.deltaTime;
