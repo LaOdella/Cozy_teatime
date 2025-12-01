@@ -104,13 +104,13 @@ public class BookLogic : MonoBehaviour
         switch (property)
         {
             case "Relaxing":
-                return "A soothing warmth. Best used to quiet a racing mind and ease tension.";
+                return "A soothing warmth. Best used to quiet a racing mind...";
             case "Sleepy":
-                return "The deep night scent. Assists the body in drawing out tension for a faster path to slumber.";
-            case "Warming":
-                return "Stirs the inner core. Excellent for chasing away a deep chill and encouraging focus.";
+                return "calming, very calming... good night";
+            case "property":
+                return "Refreshing...helps your guts and congestion relief";
             case "Earthy":
-                return "The scent of grounded soil. Provides a reliable, foundational energy that anchors the spirit.";
+                return "The scent of grounded soil..supports heart health, blood sugar control, and bone health";
             case "Simple":
                 return "The clean palate. A neutral flavor recommended for balancing stronger herbs or starting a fresh day.";
             default:

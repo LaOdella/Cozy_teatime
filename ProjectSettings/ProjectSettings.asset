@@ -578,7 +578,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   webGLInitialMemorySize: 256
   webGLMaximumMemorySize: 2048
-  webGLMemoryGrowthMode: 0
+  webGLMemoryGrowthMode: 2
   webGLMemoryLinearGrowthStep: 16
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
