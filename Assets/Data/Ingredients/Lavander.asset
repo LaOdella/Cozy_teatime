@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TeaIngredient
   teaName: Lavender
   description: A calming purple flower
-  property: Relaxing
+  property: Sleepy
   icon: {fileID: -1998495868098721992, guid: 2ef6a4e14c2d5fa4f8616416eb67f421, type: 3}
   brewedSprite: {fileID: -1685363832207006766, guid: e9a76642f1275ad42b425fa854e7a915, type: 3}

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TeaIngredient
   teaName: chamomile
   description: A sleepy flower
-  property: Sleepy
+  property: Relaxing
   icon: {fileID: 5076843057574473011, guid: ea0209cd72afe7c44b94884d645360d8, type: 3}
   brewedSprite: {fileID: 8865440841652180505, guid: 77553a59d7fd0964a9ab939eb4208061, type: 3}

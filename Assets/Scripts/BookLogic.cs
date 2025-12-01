@@ -107,7 +107,7 @@ public class BookLogic : MonoBehaviour
                 return "A soothing warmth. Best used to quiet a racing mind...";
             case "Sleepy":
                 return "calming, very calming... good night";
-            case "property":
+            case "Refreshing":
                 return "Refreshing...helps your guts and congestion relief";
             case "Earthy":
                 return "The scent of grounded soil..supports heart health, blood sugar control, and bone health";
