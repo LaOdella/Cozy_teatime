@@ -1,16 +1,14 @@
 using UnityEngine;
-
-using TMPro; // Needed for text
+using TMPro;
+using System.Collections;
 
 public class NPCLogic : MonoBehaviour
 {
-    [Header("Settings")]
-    public TMP_Text dialogueText; // Where the NPC speaks
+    [Header("UI")]
+    public TMP_Text dialogueText;
 
-    // A list of things the NPC might want (we fill this in the Inspector)
+    [Header("Possible Requests")]
     public string[] validProperties;
-
-    // What the NPC wants RIGHT NOW
     private string currentRequest;
 
     void Start()
@@ -20,39 +18,82 @@ public class NPCLogic : MonoBehaviour
 
     public void GenerateOrder()
     {
-        // 1. Pick a random property from our list
+        // Pick a random property from the Inspector list
         int randomIndex = Random.Range(0, validProperties.Length);
         currentRequest = validProperties[randomIndex];
 
-        // 2. Update the text to show the order
-        // (For the prototype, they just ask directly for the property)
+        // Call the function to display the text
+        DisplayCurrentRequest();
+    }
+
+    // NEW: Function to display the request text without generating a new request
+    public void DisplayCurrentRequest()
+    {
         if (dialogueText != null)
         {
             dialogueText.text = "I need something " + currentRequest + ".";
         }
     }
 
-    // We will call this when the Cup is dropped on the NPC
-    public void ServeTea(CupLogic cup)
+    // Called by the CupDrag script when the cup is dropped on the NPC
+    public bool ServeTea(CupLogic cup)
     {
-        // Check if the cup has tea inside
-        if (cup.teaInside != null)
+        // ... (Dry/Empty checks remain the same) ...
+        if (cup.teaInside == null)
         {
-            // COMPARE: Does the tea's property match the request?
-            if (cup.teaInside.property == currentRequest)
-            {
-                dialogueText.text = "Perfect! Just what I needed.";
-                Debug.Log("WIN: Correct Tea Served!");
-            }
-            else
-            {
-                dialogueText.text = "Hmm... this isn't what I wanted.";
-                Debug.Log("FAIL: Wrong Property.");
-            }
+            dialogueText.text = "This cup is empty! Where's my tea?";
+            return false;
         }
+        if (!cup.hasWater)
+        {
+            dialogueText.text = "It's cold and dry. Did you forget the water?";
+            return false;
+        }
+
+        // 2. Ready to Serve (Has water and leaves)
+        string receivedProperty = cup.teaInside.property;
+
+        // A. IDEAL MATCH (Win)
+        if (receivedProperty == currentRequest)
+        {
+            dialogueText.text = "Perfect! Just what I needed.";
+            Debug.Log("WIN: Correct Tea Served!");
+            StartCoroutine(WaitAndGenerateNewOrder());
+            return true;
+        }
+        // B. ACCEPTABLE MATCH (Simple Tea Override - Neutral Acceptance)
+        else if (receivedProperty == "Simple")
+        {
+            dialogueText.text = "That'll do I guess... it's a bit too simple.";
+            Debug.Log("NEUTRAL: Simple Tea served.");
+            StartCoroutine(WaitAndGenerateNewOrder());
+            return true;
+        }
+        // C. HARD REFUSAL (Wrong specialty tea)
         else
         {
-            dialogueText.text = "This cup is empty!";
+            // Show rejection message temporarily
+            dialogueText.text = "Hmm... this isn't what I wanted...";
+            Debug.Log("REJECTED: Wrong Specialty Property.");
+
+            // NEW: Start timer to revert dialogue back to the original request
+            StartCoroutine(RevertToRequest(3.0f));
+
+            return false; // Rejected (Cup snaps back full)
         }
+    }
+
+    // NEW: Coroutine to revert the text after a delay
+    private IEnumerator RevertToRequest(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        DisplayCurrentRequest(); // Re-displays the original order
+    }
+
+    // Existing Coroutine for new order generation
+    private IEnumerator WaitAndGenerateNewOrder()
+    {
+        yield return new WaitForSeconds(3f);
+        GenerateOrder();
     }
 }

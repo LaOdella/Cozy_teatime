@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 538e473b6632a7346b5fb29ae5bf43ea
+guid: f6084ddf45202bd49b5a01d30856c410
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6865029058583166475
-    second: cuproobis_0
+      213: -6834352848068525443
+    second: speech bubble_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 24
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cuproobis_0
+      name: speech bubble_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 29
-        height: 29
+        width: 104
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f18a6691748ab0a0800000000000000
-      internalID: -6865029058583166475
+      spriteID: d72423d6b408721a0800000000000000
+      internalID: -6834352848068525443
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cuproobis_0: -6865029058583166475
+      speech bubble_0: -6834352848068525443
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

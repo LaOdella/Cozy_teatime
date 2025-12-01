@@ -16,12 +16,12 @@ public class CupDrag : MonoBehaviour
 
     void Update()
     {
-        // --- PICKUP ---
+        // --- PART 1: PICKUP ---
         if (isHeld == false)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                // Priority: Don't pick up if Spoon is active
+                // Priority Check: Block pickup if Spoon is active
                 if (FindAnyObjectByType<SpoonLogic>() != null) return;
 
                 Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -35,10 +35,9 @@ public class CupDrag : MonoBehaviour
             }
         }
         else
-        // --- CARRYING ---
+        // --- PART 2: CARRYING ---
         {
-            Vector2 mousePos = Input.mousePosition;
-            Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = worldPos;
 
             if (Input.GetMouseButtonUp(0))
@@ -61,29 +60,39 @@ public class CupDrag : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(dropPos, Vector2.zero);
         gameObject.SetActive(true);
 
-        // 1. Bin (Trash)
-        if (hit.collider != null && hit.collider.CompareTag("Bin"))
+        // Check for Customer interaction first
+        if (hit.collider != null && hit.collider.CompareTag("Customer"))
+        {
+            NPCLogic npc = hit.collider.GetComponent<NPCLogic>();
+
+            if (npc != null && cupLogic != null)
+            {
+                // CRITICAL FIX: Call ServeTea and capture the TRUE/FALSE acceptance result
+                bool accepted = npc.ServeTea(cupLogic);
+
+                if (accepted)
+                {
+                    // IF ACCEPTED (Win/Neutral): Empty the cup data
+                    cupLogic.EmptyCup();
+                }
+
+                // The cup snaps back to the service table regardless of acceptance
+                // (but only empties if accepted)
+                transform.position = startPosition;
+            }
+        }
+        // Bin Interaction (Always empties the cup)
+        else if (hit.collider != null && hit.collider.CompareTag("Bin"))
         {
             BinLogic bin = hit.collider.GetComponent<BinLogic>();
             if (bin != null) bin.OpenAndClose();
-            if (cupLogic != null) cupLogic.EmptyCup();
-            transform.position = startPosition;
-        }
-        // 2. Customer (Serve) -- NEW!
-        else if (hit.collider != null && hit.collider.CompareTag("Customer"))
-        {
-            NPCLogic npc = hit.collider.GetComponent<NPCLogic>();
-            if (npc != null && cupLogic != null)
-            {
-                // Serve the tea logic
-                npc.ServeTea(cupLogic);
 
-                // Empty the cup and return it to table
-                cupLogic.EmptyCup();
-            }
+            // Bin always empties the cup's data
+            if (cupLogic != null) cupLogic.EmptyCup();
+
             transform.position = startPosition;
         }
-        // 3. Missed? (Go Home)
+        // Missed everything? (Go Home)
         else
         {
             transform.position = startPosition;
